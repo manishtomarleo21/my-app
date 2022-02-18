@@ -42,6 +42,7 @@ export default function TextForm(props) {
         let text = document.getElementById('exampleFormControlTextarea1');
         text.select();
         navigator.clipboard.writeText(text.value);
+        document.getSelection().removeAllRanges();
         props.showAlert("success", "Text has been copied to clipboard.")
 
     }
@@ -60,22 +61,23 @@ export default function TextForm(props) {
         <div className='container' style={{color: props.mode==='dark'?'white':'black'}}>
             <h2>{props.heading}</h2>
             <div className="mb-3" >
-                <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-                <textarea className="form-control"  style={{backgroundColor: props.mode==='dark'?'grey':'white', color:props.mode==='dark'?'white':'black'}} value={text} onChange={handleOnChange} id="exampleFormControlTextarea1" rows="8"></textarea>
+                <label htmlFor="exampleFormControlTextarea1" className="form-label">Type Below for effects:</label>
+                <textarea className="form-control"  style={{backgroundColor: props.mode==='dark'?'#04192c':'white', color:props.mode==='dark'?'white':'black'}} value={text} onChange={handleOnChange} id="exampleFormControlTextarea1" rows="8"></textarea>
             </div>
-            <button className="btn btn-primary mx-2" onClick={handleUpClick}>Submit for UpperCase</button>
-            <button className="btn btn-primary mx-2" onClick={handleLowClick}>Submit for LowerCase</button>
-            <button className="btn btn-primary mx-2" onClick={darkTheme}>Dark Theme</button>
-            <button className="btn btn-primary mx-2" onClick={lightTheme}>Light Theme</button>
-            <button className="btn btn-primary mx-2" onClick={copyToClipboard}>Clipboard Copy</button>
+            <button  disabled={text.length===0?true:false} className="btn btn-primary mx-2 my-1" onClick={handleUpClick}>Submit for UpperCase</button>
+            <button  disabled={text.length===0?true:false} className="btn btn-primary mx-2 my-1" onClick={handleLowClick}>Submit for LowerCase</button>
+            <button  disabled={text.length===0?true:false} className="btn btn-primary mx-2 my-1" onClick={darkTheme}>Dark Theme</button>
+            <button  disabled={text.length===0?true:false} className="btn btn-primary mx-2 my-1" onClick={lightTheme}>Light Theme</button>
+            <button  disabled={text.length===0?true:false} className="btn btn-primary mx-2 my-1" onClick={copyToClipboard}>Clipboard Copy</button>
         </div>
         <div className="container my-5" style={{color: props.mode==='dark'?'white':'black'}}>
             <h2>Your Text Summary</h2>
             {/* <p> {text.split(' ').length} words and {text.length} charcters</p> */}
-            <p> {text === ''?text.split(' ').length = 0:text.split(' ').length} words and {text.length} charcters</p>
-            <p> {0.008*text.split(' ').length } Minutes to read</p>
-            <h2>preview</h2>
-            <p>{text.length>0?text:'Enter the text in the area to preview here.'}</p>
+            <p> {text.split(' ').filter((element)=>{return element.length !==0}).length} words and {text.length} charcters</p>
+            {/* <p> {text === ''?text.split(' ').length = 0:text.split(' ').length} words and {text.length} charcters</p> */}
+            <p> {0.008*text.split(' ').filter((element)=>{return element.length !==0}).length } Minutes to read</p>
+            <h2>Preview</h2>
+            <p>{text.length>0?text:'Nothing to preview.'}</p>
         </div>
         </>
     )

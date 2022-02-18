@@ -1,33 +1,39 @@
 import React, {useState} from 'react'
 
-export default function About() {
+export default function About(props) {
 
     //this one is little tricky used hooks as style variable put a function on button
     //put a condition if black then turn to white vice versa
     // can use hook inside hook or state
 
-    const [myStyle, setMyStyle] = useState({
-        color:'black',
-        backgroundColor:'white'
-    })
+    // const [myStyle, setMyStyle] = useState({
+    //     color:'black',
+    //     backgroundColor:'white'
+    // })
 
-    const [btnText, setBtnText] = useState('Enable Dark Mode')
-
-    const toggleStyle = ()=>{
-        if(myStyle.color == 'black'){
-           setMyStyle({color:'white',
-            backgroundColor:'black'})
-            
-            setBtnText('Enable Light Mode')
-            
-        }
-        else{
-            setMyStyle({color:'black',
-            backgroundColor:'white'})
-
-            setBtnText('Enable Dark Mode')
-        }
+    let myStyle = {
+        color: props.mode==='dark'?'white':'#0d2a46',
+        backgroundColor: props.mode === 'dark'?'#0d2a46':'white'
+        
     }
+
+    // const [btnText, setBtnText] = useState('Enable Dark Mode')
+
+    // const toggleStyle = ()=>{
+    //     if(myStyle.color == 'black'){
+    //        setMyStyle({color:'white',
+    //         backgroundColor:'black'})
+            
+    //         setBtnText('Enable Light Mode')
+            
+    //     }
+    //     else{
+    //         setMyStyle({color:'black',
+    //         backgroundColor:'white'})
+
+    //         setBtnText('Enable Dark Mode')
+    //     }
+    // }
     
     
     return (
@@ -71,7 +77,7 @@ export default function About() {
                     </div>
                 </div>
             </div>
-            <button className="btn btn-primary my-3" onClick={toggleStyle} type='button'>{btnText}</button>
+            {/* <button className="btn btn-primary my-3" onClick={toggleStyle} type='button'>{btnText}</button> */}
         </div>
     )
 }

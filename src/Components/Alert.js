@@ -9,11 +9,14 @@ export default function Alert(props) {
 
     //the values was initially null so use this syntax props.alert && -- it means agr null h th kuch nhi otherwise show div
     return (
-        props.alert && <div>
+        <div style={{height:'50px'}}>
+
+        {props.alert && <div>
             <div className={`alert alert-${props.alert.type} alert-dismissible fade show`} role="alert">
                 <strong>{capitalize(props.alert.type)}</strong> {props.alert.msg}
                 
             </div>
+        </div>}
         </div>
     )
 }
